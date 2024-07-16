@@ -31,13 +31,7 @@ const ReverseTokens = () => {
       setSelectedFromToken(selectedReceiveToken)
       setSelectedReceiveToken(selectedFromToken)
     }
-  }, [
-    toggle,
-    selectedFromToken,
-    selectedReceiveToken,
-    setSelectedFromToken,
-    setSelectedReceiveToken,
-  ])
+  }, [toggle, setSelectedFromToken, setSelectedReceiveToken])
 
   const onToggle = useCallback(() => {
     setToggle(!toggle)
