@@ -15,22 +15,21 @@ type Props = CurrencyInputProps & InputProps
 
 const CurrencyInput = forwardRef<HTMLInputElement, Props>(
   ({ value, onAmountChange, ...props }, ref) => {
-    const handleChange = (
-      e: ChangeEvent<HTMLInputElement>
-    ) => {
-      const value = e.target.value
-
-      if (/^\d*$/.test(value)) {
-        if (value === '') {
-          onAmountChange('0')
-        } else if (value === '0') {
-          onAmountChange(value)
-        } else {
-          onAmountChange(value.replace(/^0+/, ''))
-        }
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      let val = event.target.value;
+  
+      if (val === '') {
+        onAmountChange('0');
+        return;
       }
-    }
-
+  
+      if (!isNaN(Number(val)) || val === '.') {
+        if (val.startsWith('0') && val.length > 1 && val[1] !== '.') {
+          val = val.slice(1);
+        }
+        onAmountChange(val);
+      }
+    };
     return (
       <Input
         ref={ref}

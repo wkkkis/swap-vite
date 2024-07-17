@@ -5,6 +5,7 @@ import { useTokensStore } from '@/store/token.store'
 // Hooks
 import { useBlockchainRequest } from '@/hooks/useBlockchain'
 import { useTokensRequest } from '@/hooks/useTokens'
+import { useSwap } from '@/hooks/useSwap'
 
 // Components
 import { FromSelector } from '@/components/swap/fromSelector'
@@ -27,6 +28,7 @@ const SwapForm = () => {
 
   useBlockchainRequest()
   useTokensRequest()
+  useSwap()
 
   const { toast } = useToast()
 

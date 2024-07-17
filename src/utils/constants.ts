@@ -15,6 +15,6 @@ const DEFAULT_SELECTED_FROM_TOKEN = {
   stacking_pool: null,
 }
 
-const NATIVE_ADDRESSES = ['Tonkoin']
+const TON_NATIVE = 'toncoin'
 
-export { DEFAULT_SELECTED_FROM_TOKEN, NATIVE_ADDRESSES }
+export { DEFAULT_SELECTED_FROM_TOKEN, TON_NATIVE }

@@ -5,22 +5,22 @@ import {
   useState,
 } from 'react'
 
+// Store
+import { IToken, useTokensStore } from '@/store/token.store'
+import { useQuoteStore } from '@/store/quote.store'
+
 // Hooks
 import { useDebounce } from '@/hooks/useDebounce'
-import { useSwap } from '@/hooks/useSwap'
 
 // Components
 import { CurrencyInput } from '@/components/currencyInput'
 import { TokenSelectModal } from '@/components/swap/tokenSelectModal'
 
-// Store
-import { IToken, useTokensStore } from '@/store/token.store'
-
 const ReceiveSelector = () => {
+  const { setQuoteData } = useQuoteStore()
   const {
     receiveAmount,
     setReceiveInput,
-    setFromInput,
 
     selectedReceiveToken,
     setSelectedReceiveToken,
@@ -28,17 +28,17 @@ const ReceiveSelector = () => {
 
   const [amountValue, setAmountValue] = useState('')
 
-  const debouncedValue = useDebounce(amountValue)
-  const { data } = useSwap(debouncedValue)
-
   const ref = useRef(null)
+  const debouncedValue = useDebounce(amountValue)
 
   useEffect(() => {
-    if (data) {
-      setReceiveInput(String(data.output_amount))
-      setFromInput(String(data.input_amount))
+    if (debouncedValue) {
+      setQuoteData({
+        type: 'output_amount',
+        amount: debouncedValue
+      })
     }
-  }, [data, setReceiveInput, setFromInput])
+  }, [debouncedValue, setQuoteData])
 
   const onTokenSelect = useCallback(
     (token: IToken) => {
@@ -61,6 +61,7 @@ const ReceiveSelector = () => {
         value={selectedReceiveToken}
         onClick={onTokenSelect}
       />
+
       {selectedReceiveToken && (
         <CurrencyInput
           ref={ref}
