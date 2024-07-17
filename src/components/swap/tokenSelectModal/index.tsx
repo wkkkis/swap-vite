@@ -1,9 +1,16 @@
-import { FC, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { useIsFetching } from '@tanstack/react-query'
+
+// Store
+import { IToken, useTokensStore } from '@/store/token.store'
+
+// Hooks
+import { useDebounce } from '@/hooks/useDebounce'
 
 // Components
 import { TokensList } from '@/components/tokensList'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import {
   Dialog,
   DialogContent,
@@ -13,15 +20,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
-// Store
-import { IToken, useTokensStore } from '@/store/token.store'
-
 // Utils
+import { cn } from '@/lib/utils'
 import {
   DEFAULT_SELECTED_FROM_TOKEN,
-  NATIVE_ADDRESSES,
+  TON_NATIVE,
 } from '@/utils/constants'
-import { cn } from '@/lib/utils'
 
 interface TokenSelectModalProps {
   onClick: (data: IToken) => void
@@ -34,18 +38,37 @@ const TokenSelectModal: FC<TokenSelectModalProps> = ({
 }) => {
   const { tokens } = useTokensStore()
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [tokensBySearch, setTokensBySearch] = useState<null | IToken[]>([])
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [searchVal, setSearchVal] = useState<string>('')
 
   const isFetching = useIsFetching()
+  const searchDebounce = useDebounce(searchVal)
+
+  useEffect(() => {
+    if (searchDebounce && tokens) {
+      const filteredTokens = tokens?.filter((token) => {
+        const name = token.name.toLowerCase()
+        return name?.includes(searchDebounce.toLowerCase())
+      })
+      setTokensBySearch(filteredTokens)
+    } else {
+      setTokensBySearch(tokens)
+    }
+  }, [tokens, searchDebounce, setTokensBySearch])
 
   const handleClick = (data: IToken) => {
-    if (NATIVE_ADDRESSES.includes(data.name)) {
+    if (TON_NATIVE === data.name.toLowerCase()) {
       onClick(DEFAULT_SELECTED_FROM_TOKEN)
     } else {
       onClick(data)
     }
     setIsOpen(false)
   }
+
+  const handleSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setSearchVal(e.target.value)
+  }, [setSearchVal])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -73,11 +96,13 @@ const TokenSelectModal: FC<TokenSelectModalProps> = ({
       >
         <DialogHeader>
           <DialogTitle>Swap tokens</DialogTitle>
-          <DialogDescription></DialogDescription>
+          <DialogDescription>
+            <Input value={searchVal} placeholder='Search' onChange={handleSearch} />
+          </DialogDescription>
         </DialogHeader>
 
         <TokensList
-          tokens={tokens}
+          tokens={tokensBySearch}
           handleClick={handleClick}
         />
       </DialogContent>

@@ -1,10 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 // Stores
 import { useTokensStore } from '@/store/token.store'
-
-// Components
-import { Separator } from '@radix-ui/react-separator'
 
 // Utils
 import { cn } from '@/lib/utils'
@@ -21,9 +18,7 @@ const ReverseTokens = () => {
     setSelectedReceiveToken,
   } = useTokensStore()
 
-  const [toggle, setToggle] = useState(false)
-
-  useEffect(() => {
+  const onToggle = useCallback(() => {
     const tokens = !!(
       selectedReceiveToken && selectedFromToken
     )
@@ -31,26 +26,23 @@ const ReverseTokens = () => {
       setSelectedFromToken(selectedReceiveToken)
       setSelectedReceiveToken(selectedFromToken)
     }
-  }, [toggle, setSelectedFromToken, setSelectedReceiveToken])
-
-  const onToggle = useCallback(() => {
-    setToggle(!toggle)
-  }, [setToggle, toggle])
+  }, [
+    selectedReceiveToken, setSelectedFromToken, 
+    selectedFromToken, setSelectedReceiveToken
+  ])
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className="flex items-center justify-center">
       {!!selectedReceiveToken && (
         <div
           onClick={onToggle}
           className={cn(
-            'w-[24px] h-[24px] flex items-center justify-center bg-stone-200 rounded-full absolute cursor-pointer transition duration-300',
-            toggle && 'rotate-[180deg]'
+            'w-[24px] h-[24px] flex items-center justify-center bg-stone-200 rounded-full cursor-pointer transition duration-300 hover:rotate-[180deg]'
           )}
         >
           <img src={reverseIcon} />
         </div>
       )}
-      <Separator className="my-4" />
     </div>
   )
 }
