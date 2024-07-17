@@ -30,7 +30,7 @@ const useTokensRequest = () => {
     if (query.isSuccess && query.data?.length) {
       setTokens(query.data)
     }
-  }, [query.isSuccess, query.data, setTokens])
+  }, [query.isSuccess, query.data])
 
   useEffect(() => {
     if (query.isError && query.error) {
@@ -39,7 +39,7 @@ const useTokensRequest = () => {
         description: query.error.message,
       })
     }
-  }, [query.isError, query.error, toast])
+  }, [query.isError, query.error])
 
   return {
     ...query,

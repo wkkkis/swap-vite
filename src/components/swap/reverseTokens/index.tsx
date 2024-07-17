@@ -26,10 +26,7 @@ const ReverseTokens = () => {
       setSelectedFromToken(selectedReceiveToken)
       setSelectedReceiveToken(selectedFromToken)
     }
-  }, [
-    selectedReceiveToken, setSelectedFromToken, 
-    selectedFromToken, setSelectedReceiveToken
-  ])
+  }, [selectedReceiveToken, selectedFromToken])
 
   return (
     <div className="flex items-center justify-center">

@@ -38,7 +38,7 @@ const ReceiveSelector = () => {
         amount: debouncedValue
       })
     }
-  }, [debouncedValue, setQuoteData])
+  }, [debouncedValue])
 
   const onTokenSelect = useCallback(
     (token: IToken) => {
