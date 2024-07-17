@@ -33,10 +33,7 @@ export const useBlockchainRequest = () => {
       setSelectedBlockchain(query.data[0])
     }
   }, [
-    query.isSuccess,
-    query.data,
-    setBlockchains,
-    setSelectedBlockchain,
+    query.isSuccess, query.data
   ])
 
   useEffect(() => {
@@ -46,7 +43,7 @@ export const useBlockchainRequest = () => {
         description: query.error.message,
       })
     }
-  }, [query.isError, query.error, toast])
+  }, [query.isError, query.error])
 
   return {
     ...query,

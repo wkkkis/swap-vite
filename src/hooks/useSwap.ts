@@ -88,10 +88,7 @@ export const useSwap = () => {
       setReceiveInput(String(query.data.output_amount))
     }
   }, [
-    query.isSuccess,
-    query.data,
-    setFromInput,
-    setReceiveInput,
+    query.isSuccess, query.data,
   ])
 
   useEffect(() => {
@@ -105,11 +102,7 @@ export const useSwap = () => {
       setReceiveInput('0')
     }
   }, [
-    query.isError, 
-    query.error, 
-    toast, 
-    setFromInput, 
-    setReceiveInput,
+    query.isError, query.error
   ])
 
   return {

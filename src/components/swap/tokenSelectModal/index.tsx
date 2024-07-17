@@ -55,7 +55,7 @@ const TokenSelectModal: FC<TokenSelectModalProps> = ({
     } else {
       setTokensBySearch(tokens)
     }
-  }, [tokens, searchDebounce, setTokensBySearch])
+  }, [tokens, searchDebounce])
 
   const handleClick = (data: IToken) => {
     if (TON_NATIVE === data.name.toLowerCase()) {
