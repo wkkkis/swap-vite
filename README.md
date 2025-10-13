@@ -1,30 +1,49 @@
-# React + TypeScript + Vite
+# Swap Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A blazing-fast React + TypeScript interface built with **Vite**, **TailwindCSS**, and **Radix UI**, designed for seamless integration with the [Swap Coffee SDK](https://swap.coffee).  
+Clean architecture, developer-friendly structure, and delightful UI out of the box.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- ⚡ **Vite** — lightning-fast HMR and build performance
+- 🎨 **TailwindCSS** — fully themeable and responsive UI system
+- 🧩 **Radix UI** — composable and accessible components
+- 🧠 **Zustand** — minimal and predictable global state
+- 🔄 **TanStack Query** — powerful async and cache layer
+- ☕ **Swap Coffee SDK** — type-safe bridge for Coffee Swap operations
+- 🧱 Modular TypeScript structure with strict typing and linting
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 🧰 Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+| Category         | Technology                            |
+| ---------------- | ------------------------------------- |
+| Framework        | React 18 + TypeScript                 |
+| Bundler          | Vite 5                                |
+| UI System        | TailwindCSS + Radix UI + Lucide Icons |
+| State Management | Zustand                               |
+| API / Data       | Axios + TanStack Query                |
+| Developer Tools  | ESLint, Prettier, TypeScript strict   |
+| Styling          | SCSS + Tailwind Merge                 |
+| Animations       | Tailwind Animate                      |
+
+---
+
+## ⚙️ Installation
+
+```bash
+# Clone repository
+git clone https://github.com/<your-org>/swap-vite.git
+cd swap-vite
+
+# Install dependencies
+npm install
+# or
+yarn install
+
+# Run development server
+npm run dev
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
